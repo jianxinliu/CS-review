@@ -1,5 +1,7 @@
 # Golang 常见面试题
 
+ref：[cnBlog](https://www.cnblogs.com/wpgraceii/p/10528183.html)
+
 ## 除了使用 Mutex 锁实现安全读写共享变量外，还有什么方式
 
 可以使用 channel 。实现"以通讯共享内存"的 CSP 模式（https://www.jianshu.com/p/36e246c6153d）
@@ -68,6 +70,23 @@ func main() {
 Context 是 goroutine 的上下文，包括一个程序的运行环境、现场和快照等。通常 Go 将这些封装在一个 Context 里，再将它传给需要执行的 goroutine。
 
 Context 包主要用来处理多个 goroutine 之间共享数据，即多个 goroutine 的管理。
+
+## Data Race 问题怎么解决？能不能不加锁解决
+
+同步访问共享数据是处理数据竞争的一种有效方法。golang 在 1.1 只后引入了竞争检测机制，可使用 `go run -race` 或 `go build -race` 来进行静态检测。其内部实现是，开启多个协程执行同一个命令，并且记录下每个变量的状态。
+
+## Go GC 
+
+GO GC 采取“非分代的、非移动的、并发的、三色的”标记清除算法。Java 也采用标记清除算法，但后者更加负责，因为内存分为多代，且各具特点，所以会针对性得采用不同的 GC 算法。Java 进行标记清除后会移动被保留的内存块来规整内存。
+
+GC 阶段：
+
+1. 栈扫描（STW）
+2. 第一次标记
+3. 第二次标记（STW）
+4. 清除（并发）
+
+[详细 GC 介绍](https://github.com/KeKe-Li/For-learning-Go-Tutorial/blob/master/src/spec/02.0.md)
 
 
 
