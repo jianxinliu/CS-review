@@ -1,8 +1,9 @@
 # Golang 常见面试题
 
 ref：[cnBlog](https://www.cnblogs.com/wpgraceii/p/10528183.html)
+
 origin ref: [origin](https://github.com/KeKe-Li/data-structures-questions)
-or mu fork on github [my fork](https://github.com/jianxinliu/data-structures-questions)
+or my fork on github [my fork](https://github.com/jianxinliu/data-structures-questions)
 
 ## 除了使用 Mutex 锁实现安全读写共享变量外，还有什么方式
 
@@ -95,14 +96,16 @@ GC 阶段：
 
 GPM 模型实现强大的并发。G(Goroutine), P(Processor), M(Thread)
 
-1. M 代表内核级线程，goroutine 运行其上
-2. G 代表一个 goroutine
-3. P Processor, 用于执行 goroutine, 内部维护一个队列，用于存储所需要的执行的 goroutine
+1. G Goroutine 代表一个 goroutine
+2. P Processor, 用于执行 goroutine, 内部维护一个队列，用于存储所需要的执行的 goroutine
+3. M Machine 代表内核级线程，goroutine 运行其上, 数量对应真正的 CPU 数
 4. Sched 调度器， 维护有存储 M 和 G 的队列
 
 调度实现：
 
-![goroutine调度实现](./assets/goroutine.jpg)
+![goroutine调度实现](../assets/goroutine.jpg)
+
+GPM 可以简要概括为：事件循环、线程池、工作队列
 
 
 ## 负载均衡
