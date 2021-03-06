@@ -1,6 +1,8 @@
 # Golang 常见面试题
 
 ref：[cnBlog](https://www.cnblogs.com/wpgraceii/p/10528183.html)
+origin ref: [origin](https://github.com/KeKe-Li/data-structures-questions)
+or mu fork on github [my fork](https://github.com/jianxinliu/data-structures-questions)
 
 ## 除了使用 Mutex 锁实现安全读写共享变量外，还有什么方式
 
@@ -89,9 +91,36 @@ GC 阶段：
 [详细 GC 介绍](https://github.com/KeKe-Li/For-learning-Go-Tutorial/blob/master/src/spec/02.0.md)
 
 
+## goroutine 的调度
+
+GPM 模型实现强大的并发。G(Goroutine), P(Processor), M(Thread)
+
+1. M 代表内核级线程，goroutine 运行其上
+2. G 代表一个 goroutine
+3. P Processor, 用于执行 goroutine, 内部维护一个队列，用于存储所需要的执行的 goroutine
+4. Sched 调度器， 维护有存储 M 和 G 的队列
+
+调度实现：
+
+![goroutine调度实现](./assets/goroutine.jpg)
 
 
+## 负载均衡
 
+将请求合理均衡得分摊到多台服务器上。
+
+有四种主要类型： (LB4, LB7)
+
+1. HTTP(七层)
+2. HTTPS(七层)
+3. TCP(四层)
+4. UDP(四层)
+
+常见 LB 算法
+
+1. 轮询。按顺序派发
+2. 最小连接。优先选择连接数最少的服务器。
+3. 根据请求源 IP 进行 hash 。一定程度上可以保证特定用户能连接到相同的服务器，在需要有状态的应用中适用。
 
 
 
